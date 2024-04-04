@@ -1,0 +1,13 @@
+const os = require('node:os')
+
+console.log('Info from Node.js operating system module:')
+console.log('OS CPU architecture:', os.arch())
+console.log('Free memory (bytes):', os.freemem())
+console.log('Total memory (bytes):', os.totalmem())
+console.log('OS platform:', os.platform())
+console.log('OS uptime (seconds):', os.uptime())
+console.log('OS version:', os.version())
+console.log('User info:', os.userInfo().username)
+console.log('OS hostname:', os.hostname())
+console.log('OS network interfaces:', os.networkInterfaces().wlp2s0[0].address)
+console.log('uptime:', os.uptime() / 60 / 60, 'hours')
