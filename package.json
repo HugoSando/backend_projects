@@ -1,0 +1,28 @@
+{
+  "name": "node-course",
+  "version": "1.0.0",
+  "description": "node js course for backend journey",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HugoSando/backend_projects.git"
+  },
+  "keywords": [
+    "tutorial",
+    "node",
+    "nodejs",
+    "backend"
+  ],
+  "author": "Hugo Sandoval",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HugoSando/backend_projects/issues"
+  },
+  "homepage": "https://github.com/HugoSando/backend_projects#readme",
+  "dependencies": {
+    "picocolors": "1.0.0"
+  }
+}
