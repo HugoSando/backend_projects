@@ -1,41 +1,42 @@
 const fs = require('node:fs/promises')
 const path = require('node:path')
+const pc = require('picocolors')
 
 // get the folder from the command line
-const folder =  process.argv[2] || '.'
+const folder = process.argv[2] || '.'
 
 async function ls (folder) {
-    // get all the files in the folder
-    let files
+  // get all the files in the folder
+  let files
+  try {
+    files = await fs.readdir(folder)
+  } catch {
+    console.error(`${pc.red(`Error reading directory: ${folder}`)}`)
+    process.exit(1)
+  }
+
+  // get information about each file
+  const filesPromises = files.map(async file => {
+    const filePath = path.join(folder, file)
+    let stats
+
     try {
-        files = await fs.readdir(folder)
+      stats = await fs.stat(filePath) // get file information
     } catch {
-        console.error(`Error reading directory: ${folder}`)
-        process.exit(1)
+      console.error(`Error reading file: ${filePath}`)
+      process.exit(1)
     }
 
-    // get information about each file
-    const filesPromises = files.map(async file => {
-        const filePath = path.join(folder, file)
-        let stats
+    const isDirectory = stats.isDirectory() ? 'd' : 'f'
+    const fileSize = stats.size.toString()
+    const fileModified = stats.mtime.toLocaleString()
 
-        try {
-            stats = await fs.stat(filePath) // get file information
-        } catch {
-            console.error(`Error reading file: ${filePath}`)
-            process.exit(1)
-        }
+    return `${isDirectory} ${pc.blue(file.padEnd(20))} - ${pc.green(fileSize.padStart(10))} bytes, modified on ${pc.yellow(fileModified)}`
+  })
 
-        const isDirectory = stats.isDirectory() ? 'd' : 'f'
-        const fileSize = stats.size.toString()
-        const fileModified = stats.mtime.toLocaleString()
-
-        return `${isDirectory} ${file.padEnd(20)} - ${fileSize.padStart(10)} bytes, modified on ${fileModified}`
-    })
-
-    // print the information
-    const filesInfo = await Promise.all(filesPromises)
-    filesInfo.forEach(fileInfo => console.log(fileInfo))
+  // print the information
+  const filesInfo = await Promise.all(filesPromises)
+  filesInfo.forEach(fileInfo => console.log(fileInfo))
 }
 
 ls(folder)
