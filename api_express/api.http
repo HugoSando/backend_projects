@@ -1,0 +1,22 @@
+### Pokemon API
+### To get the information of the ditto pokemon
+GET http://localhost:1234/pokemon/ditto
+
+### To create a new pokemon
+POST http://localhost:1234/pokemon
+Content-Type: application/json
+
+{
+  "name": "ditto",
+  "type": "normal",
+  "base": {
+    "HP": 48,
+    "Attack": 48,
+    "Defense": 48,
+    "Sp. Attack": 48,
+    "Sp. Defense": 48,
+    "Speed": 48
+  },
+  "abilities": ["limber", "imposter"],
+  "moves": ["transform"]
+}
