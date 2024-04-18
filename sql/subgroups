@@ -1,0 +1,20 @@
+SELECT 
+	EmployeeID,
+	Employee,
+	sum(Cantidad) as Unidades_Totales,
+	sum(Total) AS Total_vendido
+From (SELECT OrderID,
+	(SELECT EmployeeID FROM (SELECT OrderID,(SELECT EmployeeID FROM Employees WHERE EmployeeID = O.EmployeeID) AS EmployeeID FROM [Orders] O) WHERE OrderID = O.OrderID) AS EmployeeID,
+	(SELECT Employee FROM (SELECT OrderID,(SELECT FirstName FROM Employees WHERE EmployeeID = O.EmployeeID) AS Employee FROM [Orders] O) WHERE OrderID = O.OrderID) AS Employee,
+	ProductID,
+	sum(Quantity) AS Cantidad,
+	(SELECT Price FROM Products WHERE ProductID = O.ProductID) AS Precio,
+	sum(Quantity) * (SELECT Price FROM Products WHERE ProductID = O.ProductID) as Total
+	FROM [OrderDetails] O
+	GROUP BY ProductID
+	ORDER BY Total desc)
+GROUP BY EmployeeID
+ORDER BY Total_vendido asc
+LIMIT 5
+
+

@@ -1,0 +1,24 @@
+{
+  "name": "sql",
+  "version": "1.0.0",
+  "description": "",
+  "main": "udf.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon udf.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dataframe-js": "^1.4.4",
+    "nodemon": "^3.1.0",
+    "sqlite3": "^5.1.7"
+  },
+  "eslintConfig": {
+    "extends": "standard"
+  },
+  "devDependencies": {
+    "standard": "^17.1.0"
+  }
+}
